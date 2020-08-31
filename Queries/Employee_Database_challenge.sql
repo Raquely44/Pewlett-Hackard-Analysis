@@ -20,6 +20,9 @@ FROM unique_titles as ut
 GROUP BY ut.title
 ORDER BY count DESC;
 
+SELECT COUNT(rt.emp_no) emp_no
+FROM retirement_titles as rt;
+
 -- Mentorship Eligibility table that holds the employees who are eligible to participate in a mentorship program.
 SELECT DISTINCT ON (e.emp_no) e.emp_no, e.first_name, e.last_name, e.birth_date, de.from_date, de.to_date, t.title
 --INTO mentorship_eligibilty.csv
@@ -31,3 +34,9 @@ ON (e.emp_no = t.emp_no)
 WHERE (de.to_date = '9999-01-01')
 AND (e.birth_date Between '1965-1-1' AND '1965-12-31')
 ORDER BY emp_no ASC;
+
+SELECT COUNT (me.title), me.title
+INTO mentorship_elig_count
+FROM mentorship_eligibilty as me
+GROUP BY me.title
+ORDER BY me.title ASC;
